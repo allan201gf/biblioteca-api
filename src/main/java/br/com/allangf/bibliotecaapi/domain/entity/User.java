@@ -22,15 +22,14 @@ public class User {
     private int userId;
 
     @Column(name = "name", length = 100)
-    @UniqueElements
     private String name;
 
     @Column(name = "cpf", length = 100)
     @CPF
     private String cpf;
 
-    @JsonIgnore
-    private List<String> booksKey;
+//    @JsonIgnore
+//    private List<String> booksKey;
 
 
 
