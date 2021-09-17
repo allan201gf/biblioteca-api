@@ -28,8 +28,9 @@ public class User {
     @CPF
     private String cpf;
 
-//    @JsonIgnore
-//    private List<String> booksKey;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Booking> booksKey;
 
 
 
