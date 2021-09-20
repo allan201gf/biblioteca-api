@@ -19,6 +19,4 @@ public class NomeTest {
 
     private String title;
 
-    private String description;
-
 }
