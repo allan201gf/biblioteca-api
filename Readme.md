@@ -4,13 +4,13 @@ API Rest desenvolvida para melhorar os conhecimentos sobre Java Web.
 
 É um sistema de gerenciamento de reservas de livros que contempla o CRUD completo de usuários e reservas.
 
-A lista de livros para buscae reserva é obtida a partir da API livre da [OpenLibrary](https://openlibrary.org/developers/api), sendo o primeiro resultado da pesquisa o livro que será incluído na reserva.
+A lista de livros para buscar reserva é obtida a partir da API livre da [OpenLibrary](https://openlibrary.org/developers/api), sendo o primeiro resultado da pesquisa o livro que será incluído na reserva.
 
 **(Em Construção)** A documentação dos endpoints é feita via Swagger e pode ser acessada no link abaixo após o start do servidor:
 
 > http://localhost:8080/swagger-ui.html
 
-## 🛠️ Desenvolvido com
+## 🛠️ Em desenvolvimento com
 
 * [IntelliJ](http://www.dropwizard.io/1.0.2/docs/) - A IDE do ❤️
 * [Maven](https://maven.apache.org/) - Gerenciador de dependências
