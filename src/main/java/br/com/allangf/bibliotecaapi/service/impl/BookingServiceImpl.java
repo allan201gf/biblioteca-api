@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -59,6 +60,13 @@ public class BookingServiceImpl implements BookingService {
         return booking;
 
     }
+
+    @Override
+    public List<Booking> all() {
+        return bookingRepository.findAll();
+    }
+
+    // Metodos auxiliadores
 
     public LocalDate stringForDate (String dateString) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");

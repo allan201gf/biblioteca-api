@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.awt.print.Book;
+import java.util.List;
 
 @RestController
 @RequestMapping("/booking")
 public class BookingController {
 
-    private BookingService bookingService;
+    private final BookingService bookingService;
 
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
@@ -23,8 +24,13 @@ public class BookingController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Booking saveBooking(@RequestBody BookingDTO bookingDTO) {
-        Booking booking = bookingService.save(bookingDTO);
-        return booking;
+        return bookingService.save(bookingDTO);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<Booking> allBooking () {
+        return bookingService.all();
     }
 
 }
