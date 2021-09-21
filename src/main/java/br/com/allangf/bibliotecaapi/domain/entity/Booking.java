@@ -20,10 +20,13 @@ public class Booking {
     private int bookingId;
 
     @Column(name = "open_library_id_book")
-    private int openLibraryIdBook;
+    private String openLibraryIdBook;
 
     @Column(name = "name_of_book")
     private String nameOfBook;
+
+//    @Column(name = "code_of_book")
+//    private String codeOfBook;
 
     @Column(name = "start_booking")
     private LocalDate startBooking;
