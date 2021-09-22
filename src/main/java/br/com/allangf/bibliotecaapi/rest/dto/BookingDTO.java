@@ -15,5 +15,6 @@ public class BookingDTO {
     private String nameOfBook;
     private String startBooking;
     private String endBooking;
+    private String openLibraryIdBook;
 
 }

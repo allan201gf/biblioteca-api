@@ -45,9 +45,33 @@ public class BookingServiceImpl implements BookingService {
         LocalDate startBookingFormated = stringForDate(bookingDTO.getStartBooking());
         LocalDate endBookingFormated = stringForDate(bookingDTO.getEndBooking());
 
-        String openLibraryIdBook = getCodeOfBook(bookingDTO.getNameOfBook());
-        String nameOfBook = getNameOfBook(openLibraryIdBook);
+        if (endBookingFormated.isBefore(startBookingFormated)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "A data final não pode ser antes da data de início");
+        }
 
+        String openLibraryIdBook;
+        String nameOfBook;
+
+        if (bookingDTO.getOpenLibraryIdBook() == null) {
+            openLibraryIdBook = getCodeOfBook(bookingDTO.getNameOfBook());
+        } else {
+            openLibraryIdBook = bookingDTO.getOpenLibraryIdBook();
+        }
+        nameOfBook = getNameOfBook(openLibraryIdBook);
+
+        List<Booking> allBooking = bookingRepository.findAll();
+
+        for (Booking booking: allBooking) {
+            if (booking.getOpenLibraryIdBook().equals(openLibraryIdBook)) {
+
+                if (!((startBookingFormated.isBefore(booking.getStartBooking()) && endBookingFormated.isBefore(booking.getStartBooking())) || (startBookingFormated.isAfter(booking.getEndBooking())))) {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            "O livro " + nameOfBook + " está emprestado de " +
+                                    booking.getStartBooking() + " até " + booking.getEndBooking());
+                }
+            }
+        }
 
         Booking booking = new Booking();
         booking.setUser(user);
