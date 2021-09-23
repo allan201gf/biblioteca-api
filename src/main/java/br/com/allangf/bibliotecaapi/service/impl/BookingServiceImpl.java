@@ -4,6 +4,7 @@ import br.com.allangf.bibliotecaapi.domain.entity.Booking;
 import br.com.allangf.bibliotecaapi.domain.entity.User;
 import br.com.allangf.bibliotecaapi.domain.libraryapi.DocsKeyBook;
 import br.com.allangf.bibliotecaapi.domain.libraryapi.NameBook;
+import br.com.allangf.bibliotecaapi.domain.repository.BookStatisticsRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.BookingRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.UserRepository;
 import br.com.allangf.bibliotecaapi.rest.dto.BookingDTO;
@@ -27,6 +28,7 @@ public class BookingServiceImpl implements BookingService {
 
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
+    private final BookStatisticsRepository bookStatisticsRepository;
 
     @Autowired
     private WebClient webClientBooks;
