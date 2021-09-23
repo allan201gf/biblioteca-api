@@ -10,6 +10,7 @@ import br.com.allangf.bibliotecaapi.rest.dto.BookingDTO;
 import br.com.allangf.bibliotecaapi.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -105,7 +106,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     public void deleteBookingById(int bookingId) {
-        bookingRepository.deleteById(bookingId);
+        try {
+            bookingRepository.deleteById(bookingId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível deletar a reserva de Id " + bookingId + ", talvez ela não exista");
+        }
     }
 
     // Metodos auxiliadores
