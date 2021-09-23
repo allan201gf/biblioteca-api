@@ -135,7 +135,4 @@ public class BookingServiceImpl implements BookingService {
         return LocalDate.parse(dateString, format);
     }
 
-
-
-
 }
