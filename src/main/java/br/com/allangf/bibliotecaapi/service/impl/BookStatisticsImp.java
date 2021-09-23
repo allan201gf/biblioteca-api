@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +24,15 @@ public class BookStatisticsImp implements BookStatisticsService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existe estatisticas para apresentar");
         }
         return allBooksStatistics;
+    }
+
+    @Override
+    public int totalBooking() {
+        List<BookStatistics> allBooksStatistics = bookStatisticsRepository.findAll();
+        int totalBooking = 0;
+        for (BookStatistics statisticsBook: allBooksStatistics) {
+            totalBooking = totalBooking + statisticsBook.getNumbersOfBooking();
+        }
+        return totalBooking;
     }
 }
