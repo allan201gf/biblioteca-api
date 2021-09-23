@@ -90,6 +90,20 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findAll();
     }
 
+    @Override
+    public List<Booking> whoWithIsTheBook (String nameOrIdOfBook) {
+
+        List<Booking> allBooking = bookingRepository.findAll();
+        for (Booking booking: allBooking) {
+            if (booking.getOpenLibraryIdBook().equals(nameOrIdOfBook)) {
+                return bookingRepository.findByOpenLibraryIdBook(nameOrIdOfBook);
+            } else {
+                return bookingRepository.findByNameOfBook(nameOrIdOfBook);
+            }
+        }
+        return null;
+    }
+
     // Metodos auxiliadores
 
     public LocalDate stringForDate (String dateString) {

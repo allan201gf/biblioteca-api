@@ -33,4 +33,10 @@ public class BookingController {
         return bookingService.all();
     }
 
+    @GetMapping("/whoWithIsTheBook")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<Booking> whoWithIsTheBook(@RequestParam(value = "nameOrIdOfBook") String nameOrIdOfBook) {
+        return bookingService.whoWithIsTheBook(nameOrIdOfBook);
+    }
+
 }

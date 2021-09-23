@@ -11,4 +11,6 @@ public interface BookingService {
 
     List<Booking> all ();
 
+    List<Booking> whoWithIsTheBook (String nameOrIdOfBook);
+
 }
