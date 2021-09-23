@@ -13,4 +13,6 @@ public interface BookingService {
 
     List<Booking> whoWithIsTheBook (String nameOrIdOfBook);
 
+    void deleteBookingById(int bookingId);
+
 }

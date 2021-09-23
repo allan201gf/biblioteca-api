@@ -39,4 +39,10 @@ public class BookingController {
         return bookingService.whoWithIsTheBook(nameOrIdOfBook);
     }
 
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteBookingById(@RequestParam(value = "bookingId") int bookingId) {
+        bookingService.deleteBookingById(bookingId);
+    }
+
 }

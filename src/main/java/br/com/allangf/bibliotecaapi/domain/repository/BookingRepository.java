@@ -14,4 +14,5 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     @Query("select b from Booking b where b.nameOfBook like :nameOrIdOfBook%")
     List<Booking> findByNameOfBook(@Param("nameOrIdOfBook") String nameOrIdOfBook);
 
+    void deleteById(int bookingId);
 }

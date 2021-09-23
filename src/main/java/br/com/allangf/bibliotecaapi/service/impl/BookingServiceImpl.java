@@ -104,6 +104,10 @@ public class BookingServiceImpl implements BookingService {
         return null;
     }
 
+    public void deleteBookingById(int bookingId) {
+        bookingRepository.deleteById(bookingId);
+    }
+
     // Metodos auxiliadores
 
     public LocalDate stringForDate (String dateString) {
