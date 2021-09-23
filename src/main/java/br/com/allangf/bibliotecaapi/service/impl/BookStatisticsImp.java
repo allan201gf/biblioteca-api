@@ -4,7 +4,9 @@ import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
 import br.com.allangf.bibliotecaapi.domain.repository.BookStatisticsRepository;
 import br.com.allangf.bibliotecaapi.service.BookStatisticsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -16,6 +18,10 @@ public class BookStatisticsImp implements BookStatisticsService {
 
     @Override
     public List<BookStatistics> allBooksStatistics() {
-        return bookStatisticsRepository.findAll();
+        List<BookStatistics> allBooksStatistics = bookStatisticsRepository.findAll();
+        if(allBooksStatistics.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não existe estatisticas para apresentar");
+        }
+        return allBooksStatistics;
     }
 }

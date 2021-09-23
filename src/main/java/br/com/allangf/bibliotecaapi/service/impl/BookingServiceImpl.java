@@ -1,18 +1,17 @@
 package br.com.allangf.bibliotecaapi.service.impl;
 
+import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
 import br.com.allangf.bibliotecaapi.domain.entity.Booking;
 import br.com.allangf.bibliotecaapi.domain.entity.User;
-import br.com.allangf.bibliotecaapi.domain.libraryapi.DocsKeyBook;
-import br.com.allangf.bibliotecaapi.domain.libraryapi.NameBook;
 import br.com.allangf.bibliotecaapi.domain.repository.BookStatisticsRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.BookingRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.UserRepository;
+import br.com.allangf.bibliotecaapi.rest.config.WebClientMetods;
 import br.com.allangf.bibliotecaapi.rest.dto.BookingDTO;
 import br.com.allangf.bibliotecaapi.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -32,6 +31,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private WebClient webClientBooks;
+
+    @Autowired WebClientMetods webClientMetods;
 
 
     @Override
@@ -57,11 +58,11 @@ public class BookingServiceImpl implements BookingService {
         String nameOfBook;
 
         if (bookingDTO.getOpenLibraryIdBook() == null) {
-            openLibraryIdBook = getCodeOfBook(bookingDTO.getNameOfBook());
+            openLibraryIdBook = webClientMetods.getCodeOfBook(bookingDTO.getNameOfBook());
         } else {
             openLibraryIdBook = bookingDTO.getOpenLibraryIdBook();
         }
-        nameOfBook = getNameOfBook(openLibraryIdBook);
+        nameOfBook = webClientMetods.getNameOfBook(openLibraryIdBook);
 
         List<Booking> allBooking = bookingRepository.findAll();
 
@@ -74,6 +75,18 @@ public class BookingServiceImpl implements BookingService {
                                     booking.getStartBooking() + " até " + booking.getEndBooking());
                 }
             }
+        }
+
+        if (bookStatisticsRepository.findByOpenLibraryIdBook(openLibraryIdBook).isEmpty()) {
+            BookStatistics bookStatistics = new BookStatistics();
+            bookStatistics.setNameOfBook(nameOfBook);
+            bookStatistics.setOpenLibraryIdBook(openLibraryIdBook);
+            bookStatistics.setNumbersOfBooking(1);
+            bookStatisticsRepository.save(bookStatistics);
+        } else {
+            BookStatistics bookStatistics = bookStatisticsRepository.findByOpenLibraryIdBook(openLibraryIdBook).get(0);
+            bookStatistics.setNumbersOfBooking(bookStatistics.getNumbersOfBooking() + 1);
+            bookStatisticsRepository.save(bookStatistics);
         }
 
         Booking booking = new Booking();
@@ -122,35 +135,7 @@ public class BookingServiceImpl implements BookingService {
         return LocalDate.parse(dateString, format);
     }
 
-    public String getCodeOfBook (String nameOfBooks) {
 
-        DocsKeyBook books = this.webClientBooks
-                .method(HttpMethod.GET)
-                .uri("/search.json?q={nomeOfBook}", nameOfBooks)
-                .retrieve()
-                .bodyToMono(DocsKeyBook.class)
-                .block();
-
-        assert books != null;
-        String idBookNotFormatted = books.getDocs().get(1).toString();
-        int endIdBook = idBookNotFormatted.indexOf(")");
-        return idBookNotFormatted.substring(19, endIdBook);
-
-    }
-
-    public String getNameOfBook (String codeOfBook) {
-
-        NameBook nameBook = this.webClientBooks
-                .method(HttpMethod.GET)
-                .uri("/works/{codeOfBook}.json", codeOfBook)
-                .retrieve()
-                .bodyToMono(NameBook.class)
-                .block();
-
-        assert nameBook != null;
-        return nameBook.getTitle();
-
-    }
 
 
 }
