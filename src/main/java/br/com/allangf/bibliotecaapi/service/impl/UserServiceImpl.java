@@ -1,6 +1,7 @@
 package br.com.allangf.bibliotecaapi.service.impl;
 
 import br.com.allangf.bibliotecaapi.domain.entity.User;
+import br.com.allangf.bibliotecaapi.domain.exception.RuleOfException;
 import br.com.allangf.bibliotecaapi.domain.repository.UserRepository;
 import br.com.allangf.bibliotecaapi.rest.dto.UserDTO;
 import br.com.allangf.bibliotecaapi.service.UserService;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         try {
             userRepository.deleteById(userId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível deletar o usuário de id " + userId);
+            throw new RuleOfException("Não foi possível deletar o usuário de id " + userId);
         }
     }
 }

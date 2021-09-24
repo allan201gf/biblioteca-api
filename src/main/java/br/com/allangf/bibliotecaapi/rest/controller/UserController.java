@@ -6,6 +6,7 @@ import br.com.allangf.bibliotecaapi.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class UserController {
 
     @ApiOperation("Criar usuário")
     @PostMapping
-    public User saveUser (@RequestBody UserDTO userDTO) {
+    public User saveUser (@RequestBody @Valid UserDTO userDTO) {
         return userService.save(userDTO);
     }
 

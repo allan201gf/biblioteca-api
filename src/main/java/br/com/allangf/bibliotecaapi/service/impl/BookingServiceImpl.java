@@ -3,6 +3,7 @@ package br.com.allangf.bibliotecaapi.service.impl;
 import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
 import br.com.allangf.bibliotecaapi.domain.entity.Booking;
 import br.com.allangf.bibliotecaapi.domain.entity.User;
+import br.com.allangf.bibliotecaapi.domain.exception.RuleOfException;
 import br.com.allangf.bibliotecaapi.domain.repository.BookStatisticsRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.BookingRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.UserRepository;
@@ -124,7 +125,7 @@ public class BookingServiceImpl implements BookingService {
         try {
             bookingRepository.deleteById(bookingId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível deletar a reserva de Id " + bookingId + ", talvez ela não exista");
+            throw new RuleOfException("Não foi possível deletar a reserva de Id " + bookingId + ", talvez ela não exista");
         }
     }
 
