@@ -1,6 +1,7 @@
 package br.com.allangf.bibliotecaapi.rest.config;
 
 import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
+import br.com.allangf.bibliotecaapi.domain.exception.RuleOfException;
 import br.com.allangf.bibliotecaapi.domain.libraryapi.DocsKeyBook;
 import br.com.allangf.bibliotecaapi.domain.libraryapi.NameBook;
 import br.com.allangf.bibliotecaapi.domain.repository.BookStatisticsRepository;
@@ -20,32 +21,40 @@ public class WebClientMetods {
     private final BookStatisticsRepository bookStatisticsRepository;
 
     public String getNameOfBook (String codeOfBook) {
+        try {
+            NameBook nameBook = this.webClientBooks
+                    .method(HttpMethod.GET)
+                    .uri("/works/{codeOfBook}.json", codeOfBook)
+                    .retrieve()
+                    .bodyToMono(NameBook.class)
+                    .block();
 
-        NameBook nameBook = this.webClientBooks
-                .method(HttpMethod.GET)
-                .uri("/works/{codeOfBook}.json", codeOfBook)
-                .retrieve()
-                .bodyToMono(NameBook.class)
-                .block();
+            assert nameBook != null;
+            return nameBook.getTitle();
+        } catch (IndexOutOfBoundsException ex) {
+            throw new RuleOfException("Não foi possível encontrar o livro");
+        }
 
-        assert nameBook != null;
-        return nameBook.getTitle();
 
     }
 
     public String getCodeOfBook (String nameOfBooks) {
+        try {
+            DocsKeyBook books = this.webClientBooks
+                    .method(HttpMethod.GET)
+                    .uri("/search.json?q={nomeOfBook}", nameOfBooks)
+                    .retrieve()
+                    .bodyToMono(DocsKeyBook.class)
+                    .block();
 
-        DocsKeyBook books = this.webClientBooks
-                .method(HttpMethod.GET)
-                .uri("/search.json?q={nomeOfBook}", nameOfBooks)
-                .retrieve()
-                .bodyToMono(DocsKeyBook.class)
-                .block();
+            assert books != null;
+            String idBookNotFormatted = books.getDocs().get(0).toString();
+            int endIdBook = idBookNotFormatted.indexOf(")");
+            return idBookNotFormatted.substring(19, endIdBook);
+        } catch (IndexOutOfBoundsException ex) {
+            throw new RuleOfException("Não foi possível encontrar o livro");
+        }
 
-        assert books != null;
-        String idBookNotFormatted = books.getDocs().get(1).toString();
-        int endIdBook = idBookNotFormatted.indexOf(")");
-        return idBookNotFormatted.substring(19, endIdBook);
 
     }
 

@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
@@ -44,15 +45,14 @@ public class BookingServiceImpl implements BookingService {
         User user = userRepository
                 .findById(idUser)
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "O usuario de id " + idUser + " não foi encontrado"));
+                        new RuleOfException("O usuario de id " + idUser
+                                + " não foi encontrado"));
 
         LocalDate startBookingFormated = stringForDate(bookingDTO.getStartBooking());
         LocalDate endBookingFormated = stringForDate(bookingDTO.getEndBooking());
 
         if (endBookingFormated.isBefore(startBookingFormated)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "A data final não pode ser antes da data de início");
+            throw new RuleOfException("A data final não pode ser antes da data de início");
         }
 
         String openLibraryIdBook;
@@ -71,9 +71,10 @@ public class BookingServiceImpl implements BookingService {
             if (booking.getOpenLibraryIdBook().equals(openLibraryIdBook)) {
 
                 if (!((startBookingFormated.isBefore(booking.getStartBooking()) && endBookingFormated.isBefore(booking.getStartBooking())) || (startBookingFormated.isAfter(booking.getEndBooking())))) {
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                            "O livro " + nameOfBook + " está emprestado de " +
-                                    booking.getStartBooking() + " até " + booking.getEndBooking());
+                    throw new RuleOfException("O livro " + nameOfBook
+                            + " está emprestado de " +
+                            booking.getStartBooking() + " até "
+                            + booking.getEndBooking());
                 }
             }
         }
@@ -125,15 +126,20 @@ public class BookingServiceImpl implements BookingService {
         try {
             bookingRepository.deleteById(bookingId);
         } catch (EmptyResultDataAccessException e) {
-            throw new RuleOfException("Não foi possível deletar a reserva de Id " + bookingId + ", talvez ela não exista");
+            throw new RuleOfException("Não foi possível deletar a reserva de Id " + bookingId);
         }
     }
 
     // Metodos auxiliadores
 
     public LocalDate stringForDate (String dateString) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(dateString, format);
+        try {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            return LocalDate.parse(dateString, format);
+        } catch (DateTimeParseException e) {
+            throw new RuleOfException("Data invalida, formato correto: dd/mm/aaaa");
+        }
+
     }
 
 }

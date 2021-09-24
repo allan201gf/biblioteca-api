@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import javax.validation.Valid;
 import java.awt.print.Book;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class BookingController {
     @ApiOperation("Criar uma reserva")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Booking saveBooking(@RequestBody BookingDTO bookingDTO) {
+    public Booking saveBooking(@RequestBody @Valid BookingDTO bookingDTO) {
         return bookingService.save(bookingDTO);
     }
 
