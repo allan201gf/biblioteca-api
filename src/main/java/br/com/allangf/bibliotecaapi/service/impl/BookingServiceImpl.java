@@ -51,7 +51,9 @@ public class BookingServiceImpl implements BookingService {
         LocalDate startBookingFormated = stringForDate(bookingDTO.getStartBooking());
         LocalDate endBookingFormated = stringForDate(bookingDTO.getEndBooking());
 
-        if (endBookingFormated.isBefore(startBookingFormated)) {
+        if (startBookingFormated.isBefore(LocalDate.now())) {
+            throw new RuleOfException("A data de início não pode ser anterior a data atual");
+        } else if (endBookingFormated.isBefore(startBookingFormated)) {
             throw new RuleOfException("A data final não pode ser antes da data de início");
         }
 
