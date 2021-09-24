@@ -3,6 +3,7 @@ package br.com.allangf.bibliotecaapi.rest.controller;
 import br.com.allangf.bibliotecaapi.domain.entity.User;
 import br.com.allangf.bibliotecaapi.rest.dto.UserDTO;
 import br.com.allangf.bibliotecaapi.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    @ApiOperation("Criar usuário")
     @PostMapping
     public User saveUser (@RequestBody UserDTO userDTO) {
         return userService.save(userDTO);
     }
 
+    @ApiOperation("Listar todos os usuários")
     @GetMapping
     public List<User> allUsers() {
         return userService.all();

@@ -6,9 +6,9 @@ API Rest desenvolvida para melhorar os conhecimentos sobre Java Web.
 
 A lista de livros para buscar reserva é obtida a partir da API livre da [OpenLibrary](https://openlibrary.org/developers/api), sendo o primeiro resultado da pesquisa o livro que será incluído na reserva.
 
-**(Em Construção)** A documentação dos endpoints é feita via Swagger e pode ser acessada no link abaixo após o start do servidor:
+A documentação dos endpoints é feita via Swagger e pode ser acessada no link abaixo após o start do servidor:
 
-> http://localhost:8080/swagger-ui.html
+> http://localhost:80/swagger-ui.html
 
 ## 🛠️ Em desenvolvimento com
 
