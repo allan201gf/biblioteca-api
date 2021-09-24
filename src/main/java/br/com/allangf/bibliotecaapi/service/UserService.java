@@ -10,4 +10,6 @@ public interface UserService {
     User save (UserDTO dto);
 
     List<User> all();
+
+    void deleteUserById (int userId);
 }

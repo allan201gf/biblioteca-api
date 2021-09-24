@@ -30,7 +30,11 @@ public class UserController {
         return userService.all();
     }
 
-
+    @ApiOperation("Deletar usuário por Id")
+    @DeleteMapping
+    public void deleteUserById (@RequestParam(value = "bookingId") int userId) {
+        userService.deleteUserById(userId);
+    }
 
 
 }

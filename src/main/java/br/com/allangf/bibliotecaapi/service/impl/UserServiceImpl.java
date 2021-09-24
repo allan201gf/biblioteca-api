@@ -5,7 +5,10 @@ import br.com.allangf.bibliotecaapi.domain.repository.UserRepository;
 import br.com.allangf.bibliotecaapi.rest.dto.UserDTO;
 import br.com.allangf.bibliotecaapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -29,5 +32,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> all() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public void deleteUserById(int userId) {
+        try {
+            userRepository.deleteById(userId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível deletar o usuário de id " + userId);
+        }
     }
 }
