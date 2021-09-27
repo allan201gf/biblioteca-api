@@ -136,14 +136,40 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findByEndBooking(LocalDate.now());
     }
 
+    public Booking putBooking(int bookingId, BookingDTO bookingDTO) {
+        return bookingRepository.findById(bookingId)
+                .map(booking -> {
+                    booking.setUser(booking.getUser());
+
+                    if (bookingDTO.getEndBooking() != null) {
+                        booking.setEndBooking(stringForDate(bookingDTO.getEndBooking()));
+                    } else {
+                        booking.setEndBooking(booking.getEndBooking());
+                    }
+
+                    if (bookingDTO.getStartBooking() != null) {
+                        booking.setStartBooking(stringForDate(bookingDTO.getStartBooking()));
+                    } else {
+                        booking.setStartBooking(booking.getStartBooking());
+                    }
+
+                    booking.setOpenLibraryIdBook(booking.getOpenLibraryIdBook());
+                    booking.setNameOfBook(booking.getNameOfBook());
+
+                    bookingRepository.save(booking);
+
+                    return booking;
+                }).orElseThrow(() -> new RuleOfException("A reserva de id " + bookingId + " não foi encontrada"));
+    }
+
     // Metodos auxiliadores
 
     public LocalDate stringForDate (String dateString) {
         try {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             return LocalDate.parse(dateString, format);
-        } catch (DateTimeParseException e) {
-            throw new RuleOfException("Data invalida, formato correto: dd/mm/aaaa");
+        } catch (Exception e) {
+            throw new RuleOfException("Data invalida ou nula, formato correto: dd/mm/aaaa ");
         }
 
     }

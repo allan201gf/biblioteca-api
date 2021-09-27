@@ -13,12 +13,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BookingDTO {
 
-    @NotNull(message = "Obrigatório informar um usuário")
     private int user;
     private String nameOfBook;
-    @NotEmpty(message = "Obrigatório informar uma data de início da reserva")
     private String startBooking;
-    @NotEmpty(message = "Obrigatório informa uma data de término da reserva")
     private String endBooking;
     private String openLibraryIdBook;
 

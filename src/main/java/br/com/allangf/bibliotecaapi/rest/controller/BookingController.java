@@ -30,6 +30,14 @@ public class BookingController {
         return bookingService.save(bookingDTO);
     }
 
+    @ApiOperation("Atualiza uma reserva")
+    @PutMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Booking putBooking(@RequestParam(value = "bookingId") int bookingId,
+                              @RequestBody @Valid BookingDTO bookingDTO) {
+        return bookingService.putBooking(bookingId, bookingDTO);
+    }
+
     @ApiOperation("Retornar todas as reservas")
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)

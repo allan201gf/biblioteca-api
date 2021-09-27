@@ -17,4 +17,6 @@ public interface BookingService {
 
     List<Booking> booksForReturnToday();
 
+    Booking putBooking(int bookingId, BookingDTO bookingDTO);
+
 }
