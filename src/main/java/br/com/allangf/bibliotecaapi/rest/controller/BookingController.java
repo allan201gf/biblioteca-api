@@ -51,4 +51,10 @@ public class BookingController {
         bookingService.deleteBookingById(bookingId);
     }
 
+    @ApiOperation("Livros para serem devolvidos hoje")
+    @GetMapping("/booksForReturnToday")
+    public List<Booking> booksForReturnToday() {
+        return bookingService.booksForReturnToday();
+    }
+
 }

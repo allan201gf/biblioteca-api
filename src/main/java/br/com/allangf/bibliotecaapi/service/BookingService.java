@@ -15,4 +15,6 @@ public interface BookingService {
 
     void deleteBookingById(int bookingId);
 
+    public List<Booking> booksForReturnToday();
+
 }

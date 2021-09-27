@@ -132,6 +132,10 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
+    public List<Booking> booksForReturnToday() {
+        return bookingRepository.findByEndBooking(LocalDate.now());
+    }
+
     // Metodos auxiliadores
 
     public LocalDate stringForDate (String dateString) {
