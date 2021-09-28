@@ -10,7 +10,7 @@ A documentação dos endpoints é feita via Swagger e pode ser acessada no link 
 
 > http://localhost:80/swagger-ui.html
 
-## 🛠️ Em desenvolvimento com
+## 🛠️ Desenvolvida com
 
 * [IntelliJ](http://www.dropwizard.io/1.0.2/docs/) - A IDE do ❤️
 * [Maven](https://maven.apache.org/) - Gerenciador de dependências
