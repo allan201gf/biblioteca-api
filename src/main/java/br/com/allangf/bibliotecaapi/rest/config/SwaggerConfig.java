@@ -29,7 +29,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Biblioteca API")
-                .description("API para gestão de emprestimos de livros com conexão em API externa")
+                .description("API para gestão de empréstimos de livros com conexão em API externa (https://openlibrary.org/developers/api)")
                 .version("1.0")
                 .contact(contact())
                 .build();
