@@ -1,6 +1,5 @@
 package br.com.allangf.bibliotecaapi.rest.config;
 
-import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
 import br.com.allangf.bibliotecaapi.domain.exception.RuleOfException;
 import br.com.allangf.bibliotecaapi.domain.libraryapi.DocsKeyBook;
 import br.com.allangf.bibliotecaapi.domain.libraryapi.NameBook;

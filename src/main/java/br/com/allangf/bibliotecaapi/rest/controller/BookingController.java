@@ -4,13 +4,10 @@ import br.com.allangf.bibliotecaapi.domain.entity.Booking;
 import br.com.allangf.bibliotecaapi.rest.dto.BookingDTO;
 import br.com.allangf.bibliotecaapi.service.BookingService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.validation.Valid;
-import java.awt.print.Book;
 import java.util.List;
 
 @RestController

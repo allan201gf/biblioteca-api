@@ -3,7 +3,6 @@ package br.com.allangf.bibliotecaapi.domain.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.scheduling.support.SimpleTriggerContext;
 
 import javax.persistence.*;
 import java.time.LocalDate;
