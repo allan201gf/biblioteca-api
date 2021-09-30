@@ -24,9 +24,6 @@ public class Booking {
     @Column(name = "name_of_book")
     private String nameOfBook;
 
-//    @Column(name = "code_of_book")
-//    private String codeOfBook;
-
     @Column(name = "start_booking")
     private LocalDate startBooking;
 
