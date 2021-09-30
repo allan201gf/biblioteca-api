@@ -25,9 +25,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setName(dto.getName());
         user.setCpf(dto.getCpf());
-
         return userRepository.save(user);
-
     }
 
     @Override
