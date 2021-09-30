@@ -1,9 +1,11 @@
 package br.com.allangf.bibliotecaapi.service.impl;
 
+import br.com.allangf.bibliotecaapi.domain.entity.BookBlocked;
 import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
 import br.com.allangf.bibliotecaapi.domain.entity.Booking;
 import br.com.allangf.bibliotecaapi.domain.entity.User;
 import br.com.allangf.bibliotecaapi.domain.exception.RuleOfException;
+import br.com.allangf.bibliotecaapi.domain.repository.BookBlockedRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.BookStatisticsRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.BookingRepository;
 import br.com.allangf.bibliotecaapi.domain.repository.UserRepository;
@@ -27,6 +29,7 @@ public class BookingServiceImpl implements BookingService {
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
     private final BookStatisticsRepository bookStatisticsRepository;
+    private final BookBlockedRepository bookBlockedRepository;
 
     @Autowired
     private WebClient webClientBooks;
@@ -63,6 +66,14 @@ public class BookingServiceImpl implements BookingService {
             openLibraryIdBook = bookingDTO.getOpenLibraryIdBook();
         }
         nameOfBook = webClientMetods.getNameOfBook(openLibraryIdBook);
+
+        List<BookBlocked> allBookBlocked = bookBlockedRepository.findAll();
+
+        for (BookBlocked book: allBookBlocked) {
+            if (book.getBookBlocked().equals(true) && book.getOpenLibraryIdBook().equals(openLibraryIdBook)) {
+                throw new RuleOfException("Está livro está travado para novas reservas");
+            }
+        }
 
         List<Booking> allBooking = bookingRepository.findAll();
 
