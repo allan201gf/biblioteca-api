@@ -159,7 +159,7 @@ public class BookingServiceImpl implements BookingService {
                 }).orElseThrow(() -> new RuleOfException("A reserva de id " + bookingId + " não foi encontrada"));
     }
 
-    // Metodos auxiliadores
+    // Métodos auxiliadores
 
     public LocalDate stringForDate (String dateString) {
         try {
