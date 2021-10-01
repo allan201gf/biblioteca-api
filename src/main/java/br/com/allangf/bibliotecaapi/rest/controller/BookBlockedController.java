@@ -1,7 +1,6 @@
 package br.com.allangf.bibliotecaapi.rest.controller;
 
 import br.com.allangf.bibliotecaapi.domain.entity.BookBlocked;
-<<<<<<< HEAD
 import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
 import br.com.allangf.bibliotecaapi.rest.config.WebClientMetods;
 import br.com.allangf.bibliotecaapi.rest.dto.BookBlockedDTO;
@@ -13,14 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.annotation.HttpConstraint;
-=======
-import br.com.allangf.bibliotecaapi.rest.dto.BookBlockedDTO;
-import br.com.allangf.bibliotecaapi.service.BookBlockedService;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
->>>>>>> 44d9ce5 (Limpeza de código)
 import javax.validation.Valid;
 import java.util.List;
 

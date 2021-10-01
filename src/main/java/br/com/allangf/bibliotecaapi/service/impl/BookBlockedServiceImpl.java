@@ -7,6 +7,7 @@ import br.com.allangf.bibliotecaapi.rest.config.WebClientMetods;
 import br.com.allangf.bibliotecaapi.rest.dto.BookBlockedDTO;
 import br.com.allangf.bibliotecaapi.service.BookBlockedService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.http11.filters.SavedRequestInputFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
