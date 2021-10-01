@@ -2,7 +2,7 @@
 
 API Rest desenvolvida para melhorar os conhecimentos sobre Java Web.
 
-É um sistema de gerenciamento de reservas de livros que contempla o CRUD completo de usuários e reservas.
+É um sistema de gerenciamento de reservas de livros que contempla o CRUD completo de usuários e reservas, buscas, estatísticas e bloqueio de livros.
 
 A lista de livros para buscar reserva é obtida a partir da API livre da [OpenLibrary](https://openlibrary.org/developers/api), sendo o primeiro resultado da pesquisa o livro que será incluído na reserva.
 
@@ -19,6 +19,7 @@ A documentação dos endpoints é feita via Swagger e pode ser acessada no link 
 * [Lombok](https://projectlombok.org/) - Facilitar a criação de construtores
 * [Swagger](https://swagger.io/tools/open-source/open-source-integrations/) - Listagem endpoints da API
 * [WebClient](https://spring.io/guides/gs/reactive-rest-service/) - Consumir API externa
+* [JSON-Java](https://www.baeldung.com/java-org-json) - Trabalhar com Json
 
 ## 📄 Licença
 
