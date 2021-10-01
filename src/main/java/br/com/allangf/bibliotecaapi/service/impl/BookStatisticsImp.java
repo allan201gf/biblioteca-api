@@ -1,9 +1,11 @@
 package br.com.allangf.bibliotecaapi.service.impl;
 
 import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
+import br.com.allangf.bibliotecaapi.domain.entity.TotalBookStatistics;
 import br.com.allangf.bibliotecaapi.domain.repository.BookStatisticsRepository;
 import br.com.allangf.bibliotecaapi.service.BookStatisticsService;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,12 +28,16 @@ public class BookStatisticsImp implements BookStatisticsService {
     }
 
     @Override
-    public int totalBooking() {
+    public TotalBookStatistics totalBooking() {
         List<BookStatistics> allBooksStatistics = bookStatisticsRepository.findAll();
         int totalBooking = 0;
         for (BookStatistics statisticsBook: allBooksStatistics) {
             totalBooking = totalBooking + statisticsBook.getNumbersOfBooking();
         }
-        return totalBooking;
+
+        TotalBookStatistics total = new TotalBookStatistics();
+        total.setTotal(totalBooking);
+
+        return total;
     }
 }

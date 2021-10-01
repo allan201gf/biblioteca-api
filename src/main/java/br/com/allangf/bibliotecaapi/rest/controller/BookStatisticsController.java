@@ -1,6 +1,7 @@
 package br.com.allangf.bibliotecaapi.rest.controller;
 
 import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
+import br.com.allangf.bibliotecaapi.domain.entity.TotalBookStatistics;
 import br.com.allangf.bibliotecaapi.service.BookStatisticsService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class BookStatisticsController {
 
     @ApiOperation("Retorna o número total de reservas de todos os livros somadas")
     @GetMapping("/total")
-    public int totalBooking() {
+    public TotalBookStatistics totalBooking() {
         return bookStatisticsService.totalBooking();
     }
 
