@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +27,14 @@ public class BookBlockedServiceImpl implements BookBlockedService {
     public BookBlocked lockBook(BookBlockedDTO bookBlockedDTO) {
 
         String openLibraryIdBook = webClientMetods.getCodeOfBook(bookBlockedDTO.getNameOfBook());
-        String nameOfBook = nameOfBook = webClientMetods.getNameOfBook(openLibraryIdBook);
+        String nameOfBook = webClientMetods.getNameOfBook(openLibraryIdBook);
+
+        long jaEmprestado = bookBlockedRepository.findAll()
+                .stream()
+                .filter(b -> Objects.equals(b.getNameOfBook(), nameOfBook))
+                .count();
+
+        if (jaEmprestado == 0) {
 
         BookBlocked lockBook = new BookBlocked();
         lockBook.setNameOfBook(nameOfBook);
@@ -34,6 +42,18 @@ public class BookBlockedServiceImpl implements BookBlockedService {
         lockBook.setBookBlocked(true);
         bookBlockedRepository.save(lockBook);
         return lockBook;
+
+        } else {
+
+            return bookBlockedRepository.findByNameOfBook(nameOfBook).map(book -> {
+                book.setBookBlocked(true);
+                bookBlockedRepository.save(book);
+                return book;
+
+            }).orElseThrow(() -> {
+                throw new RuleOfException("Erro ao localizar o livro");
+            });
+        }
     }
 
     @Override
