@@ -1,17 +1,12 @@
 package br.com.allangf.bibliotecaapi.rest.controller;
 
 import br.com.allangf.bibliotecaapi.domain.entity.BookBlocked;
-import br.com.allangf.bibliotecaapi.domain.entity.BookStatistics;
-import br.com.allangf.bibliotecaapi.rest.config.WebClientMetods;
 import br.com.allangf.bibliotecaapi.rest.dto.BookBlockedDTO;
 import br.com.allangf.bibliotecaapi.service.BookBlockedService;
-import br.com.allangf.bibliotecaapi.service.BookStatisticsService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.annotation.HttpConstraint;
 import javax.validation.Valid;
 import java.util.List;
 
